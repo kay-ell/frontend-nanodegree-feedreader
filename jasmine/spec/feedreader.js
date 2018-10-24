@@ -33,8 +33,8 @@ $(function() {
          */
         it('all URLs are defined and that they are not empty', function() {
             allFeeds.forEach((feed) => {
-                expect(feed.url).toBeDefined();
-                expect(feed.url.length).not.toBe(0);
+                expect(feed.url).toBeDefined(); // test whether feed's url is defined
+                expect(feed.url.length).not.toBe(0); // test whether feed's url is not empty
             });
         });
 
@@ -45,8 +45,8 @@ $(function() {
          */
         it('all names in allFeeds are defined and not empty', function() {
             allFeeds.forEach((feed) => {
-                expect(feed.name).toBeDefined();
-            expect(feed.name.length).not.toBe(0);
+                expect(feed.name).toBeDefined(); // test whether feed name is defined
+            expect(feed.name.length).not.toBe(0); // test whether feed name is not empty
             });
         });
     });
@@ -61,6 +61,7 @@ $(function() {
          */
         it('menu is hidden by default', function() {
             const body = document.querySelector('body');
+            // test whether the body contain a class that hides the menu by default
             expect(body.classList.contains('menu-hidden')).toBe(true);
         });
          /* TODO: Write a test that ensures the menu changes
@@ -72,8 +73,10 @@ $(function() {
             const body = document.querySelector('body');
             const menu = document.querySelector('.menu-icon-link');
             menu.click();
+            // test whether the menu-hidden class toggles on click
             expect(body.classList.contains('menu-hidden')).toBe(false);
             menu.click();
+            // test whether the menu-hidden class toggles on click
             expect(body.classList.contains('menu-hidden')).toBe(true); 
         });
     });
@@ -88,12 +91,12 @@ $(function() {
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
         beforeEach(function(done) {
-            loadFeed(0, done);
+            loadFeed(0, done); // loadFeed done before the tests
         });
 
         it('at least a single entry when the loadFeed is completed', function() {
             const feed = document.querySelector('.feed');
-            expect(feed.children.length > 0).toBe(true);
+            expect(feed.children.length > 0).toBe(true); // test whether the feed container has any children elements in it
         });
     });
         
@@ -105,11 +108,12 @@ $(function() {
          * Remember, loadFeed() is asynchronous.
          */
         const feed = document.querySelector('.feed');
-        let newFeed = [];
+        let newFeed = []; // create an empty array to hold the children elements of the feed container
 
         beforeEach(function(done) {
             loadFeed(0);
             let feedsArray = feed.children;
+            // loop through the feed's children elements and push them into the newFeed array
             Array.from(feed.children).forEach(function(entry) {
                 newFeed.push(entry.innerText);
             });
@@ -117,6 +121,7 @@ $(function() {
         });
 
         it('content actually changes', function() {
+            // loop through the feed's children elements and check whether the entry matches the one in the newFeed array
             Array.from(feed.children).forEach(function(entry, ind) {
                 expect(entry.innerText === newFeed[ind]).toBe(false);
             });
